@@ -1,6 +1,6 @@
 ,train_f1_score
 dummy_classifier,0.0
-svc,0.406
-knn,0.447
+svc,0.535
+knn,0.445
 logistic_regression,0.479
-random_forest,0.539
+random_forest,0.542
