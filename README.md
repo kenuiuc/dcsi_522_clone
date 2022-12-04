@@ -96,10 +96,14 @@ For overall list of dependencies, please check [here](https://github.com/UBC-MDS
 
 - Python 3.10.6
 - Conda 22.9.0
-- R 4.2.2
-- R package 'reticulate', 'rmarkdown'
 - pandoc
 - pandoc-citeproc
+- R 4.2.2 and R packages:
+	* reticulate,
+	* rmarkdown,
+	* tidyverse,
+	* knitr,
+
 
 ## License
 
