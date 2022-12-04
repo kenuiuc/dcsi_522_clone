@@ -624,10 +624,7 @@ body {
 <p>In this report, we attempt to use machine-learning algorithms to predict whether a client would default a payment or not, given a set of the client’s information.</p>
 <h3 id="data">Data</h3>
 <p>The data set used in the project was produced by Yeh, I. C., and Lien, C. H., and it is freely accessible for download at the UCI Machine Learning Repository (“Default of Credit Card Clients,” n.d.) (with the title “default of credit card clients” in 2016). The <a href="https://github.com/UBC-MDS/credit_default_prediction_group_20/tree/main/data/raw">dataset</a> is based on examples of Taiwanese credit card clients defaulting from April to September. Each observation in the 30000-observation dataset reflects the data of a certain client. The dataset has no missing values and has 24 features which are gender, age, marital status, ID, Repayment Status, and Bill and Pay amounts. The final target indicates whether the client will default or not. The 24 features can be groups as categorical, numeric, and binary.</p>
-<p>Some of the key pre-processing performed in the data includes: - As ID is the ID of each client, which is unique, feature is dropped.<br />
-- <code>SEX</code> will be regarded as a binary value since the data contains binary values.<br />
-- As there are unknown values in the <code>EDUCATION</code> feature, they were combined and grouped along with “Others”. Finally, the categories were encoded as 1 for high school, 2 for university, 3 for graduate school, and 4 for others.<br />
-- As there are unknown values in the <code>MARRIAGE</code> feature, they were combined and grouped along with “Others”. Finally, the categories were encoded as 1 for married, 2 for single, 3 for others.</p>
+<p>Some of the key pre-processing performed in the data includes: - As ID is the ID of each client, which is unique, feature is dropped. - <code>SEX</code> will be regarded as a binary value since the data contains binary values. - As there are unknown values in the <code>EDUCATION</code> feature, they were combined and grouped along with “Others”. Finally, the categories were encoded as 1 for high school, 2 for university, 3 for graduate school, and 4 for others. - As there are unknown values in the <code>MARRIAGE</code> feature, they were combined and grouped along with “Others”. Finally, the categories were encoded as 1 for married, 2 for single, 3 for others.</p>
 <p>As shown in the Figure 1, the target is an imbalanced feature.</p>
 <center>
 
@@ -655,7 +652,144 @@ body {
 <p>On comparing <code>RandomForestClassifier</code> and <code>SVC</code>, we see that both of them have approximately the same F1 scores. As there is a tie in the F1 scores, we pick the model with lower Type II errors. As as <code>SVC</code> has a higher recall score, <code>SVC</code> can lower Type II errors better than <code>RandomForestClassifier</code>. Conversely, <code>RandomForestClassifier</code> is performing well in terms of lowering the Type I errors. Since it is of paramount importance to reduce the false negatives introduced by the model, we pick <code>SVC</code> to move forward.</p>
 <center>
 
-<p><strong>TODO: Ken -&gt; put csv result here</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">…1</th>
+<th align="left">Dummy</th>
+<th align="left">RandomForestClassifier</th>
+<th align="left">RandomForestClassifier Optimized</th>
+<th align="left">kNN</th>
+<th align="left">kNN Optimized</th>
+<th align="left">SCV</th>
+<th align="left">SCV Optimized</th>
+<th align="left">Logistic Regression</th>
+<th align="left">Logistic Regression Otimized</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">fit_time</td>
+<td align="left">0.026 (+/- 0.003)</td>
+<td align="left">5.964 (+/- 0.042)</td>
+<td align="left">8.865 (+/- 0.013)</td>
+<td align="left">0.021 (+/- 0.001)</td>
+<td align="left">0.021 (+/- 0.000)</td>
+<td align="left">18.911 (+/- 0.161)</td>
+<td align="left">323.712 (+/- 8.932)</td>
+<td align="left">0.937 (+/- 0.154)</td>
+<td align="left">0.754 (+/- 0.009)</td>
+</tr>
+<tr class="even">
+<td align="left">score_time</td>
+<td align="left">0.015 (+/- 0.000)</td>
+<td align="left">0.133 (+/- 0.002)</td>
+<td align="left">0.063 (+/- 0.001)</td>
+<td align="left">0.463 (+/- 0.083)</td>
+<td align="left">0.419 (+/- 0.004)</td>
+<td align="left">3.018 (+/- 0.024)</td>
+<td align="left">3.482 (+/- 0.024)</td>
+<td align="left">0.017 (+/- 0.001)</td>
+<td align="left">0.017 (+/- 0.001)</td>
+</tr>
+<tr class="odd">
+<td align="left">test_f1</td>
+<td align="left">0.000 (+/- 0.000)</td>
+<td align="left">0.476 (+/- 0.014)</td>
+<td align="left">0.539 (+/- 0.010)</td>
+<td align="left">0.429 (+/- 0.013)</td>
+<td align="left">0.447 (+/- 0.011)</td>
+<td align="left">0.447 (+/- 0.021)</td>
+<td align="left">0.406 (+/- 0.013)</td>
+<td align="left">0.358 (+/- 0.011)</td>
+<td align="left">0.479 (+/- 0.006)</td>
+</tr>
+<tr class="even">
+<td align="left">train_f1</td>
+<td align="left">0.000 (+/- 0.000)</td>
+<td align="left">0.999 (+/- 0.000)</td>
+<td align="left">0.573 (+/- 0.004)</td>
+<td align="left">0.568 (+/- 0.004)</td>
+<td align="left">0.999 (+/- 0.000)</td>
+<td align="left">0.460 (+/- 0.006)</td>
+<td align="left">0.865 (+/- 0.001)</td>
+<td align="left">0.361 (+/- 0.007)</td>
+<td align="left">0.482 (+/- 0.002)</td>
+</tr>
+<tr class="odd">
+<td align="left">test_accuracy</td>
+<td align="left">0.778 (+/- 0.000)</td>
+<td align="left">0.817 (+/- 0.005)</td>
+<td align="left">0.778 (+/- 0.007)</td>
+<td align="left">0.791 (+/- 0.005)</td>
+<td align="left">0.812 (+/- 0.005)</td>
+<td align="left">0.819 (+/- 0.005)</td>
+<td align="left">0.715 (+/- 0.005)</td>
+<td align="left">0.810 (+/- 0.003)</td>
+<td align="left">0.688 (+/- 0.006)</td>
+</tr>
+<tr class="even">
+<td align="left">train_accuracy</td>
+<td align="left">0.778 (+/- 0.000)</td>
+<td align="left">1.000 (+/- 0.000)</td>
+<td align="left">0.794 (+/- 0.005)</td>
+<td align="left">0.842 (+/- 0.001)</td>
+<td align="left">1.000 (+/- 0.000)</td>
+<td align="left">0.823 (+/- 0.001)</td>
+<td align="left">0.936 (+/- 0.000)</td>
+<td align="left">0.811 (+/- 0.001)</td>
+<td align="left">0.690 (+/- 0.004)</td>
+</tr>
+<tr class="odd">
+<td align="left">test_precision</td>
+<td align="left">0.000 (+/- 0.000)</td>
+<td align="left">0.651 (+/- 0.021)</td>
+<td align="left">0.499 (+/- 0.013)</td>
+<td align="left">0.543 (+/- 0.018)</td>
+<td align="left">0.640 (+/- 0.025)</td>
+<td align="left">0.689 (+/- 0.023)</td>
+<td align="left">0.376 (+/- 0.011)</td>
+<td align="left">0.712 (+/- 0.022)</td>
+<td align="left">0.381 (+/- 0.006)</td>
+</tr>
+<tr class="even">
+<td align="left">train_precision</td>
+<td align="left">0.000 (+/- 0.000)</td>
+<td align="left">0.999 (+/- 0.000)</td>
+<td align="left">0.530 (+/- 0.011)</td>
+<td align="left">0.722 (+/- 0.002)</td>
+<td align="left">1.000 (+/- 0.000)</td>
+<td align="left">0.706 (+/- 0.006)</td>
+<td align="left">0.813 (+/- 0.002)</td>
+<td align="left">0.717 (+/- 0.006)</td>
+<td align="left">0.383 (+/- 0.003)</td>
+</tr>
+<tr class="odd">
+<td align="left">test_recall</td>
+<td align="left">0.000 (+/- 0.000)</td>
+<td align="left">0.376 (+/- 0.015)</td>
+<td align="left">0.587 (+/- 0.014)</td>
+<td align="left">0.355 (+/- 0.012)</td>
+<td align="left">0.343 (+/- 0.010)</td>
+<td align="left">0.331 (+/- 0.018)</td>
+<td align="left">0.440 (+/- 0.016)</td>
+<td align="left">0.239 (+/- 0.009)</td>
+<td align="left">0.647 (+/- 0.009)</td>
+</tr>
+<tr class="even">
+<td align="left">train_recall</td>
+<td align="left">0.000 (+/- 0.000)</td>
+<td align="left">0.999 (+/- 0.000)</td>
+<td align="left">0.625 (+/- 0.013)</td>
+<td align="left">0.468 (+/- 0.005)</td>
+<td align="left">0.998 (+/- 0.000)</td>
+<td align="left">0.342 (+/- 0.007)</td>
+<td align="left">0.924 (+/- 0.003)</td>
+<td align="left">0.241 (+/- 0.005)</td>
+<td align="left">0.649 (+/- 0.004)</td>
+</tr>
+</tbody>
+</table>
 <p>Table 1. Cross Validation Results of the optimized Models.</p>
 </center>
 
